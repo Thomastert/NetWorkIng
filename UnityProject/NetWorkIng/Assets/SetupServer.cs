@@ -3,13 +3,13 @@ using System.Collections;
 
 public class SetupServer : MonoBehaviour {
 private const string typeName = "TankMoba";
-private const string gameName = "Room1";
+private const string gameName = "TankMobaMC";
 	
     // Use this for initialization
 	private void StartServer()
     {
-        Network.InitializeServer(2, 25000, !Network.HavePublicAddress());
-        MasterServer.RegisterHost(typeName, gameName);
+		Network.InitializeServer(5, 25002, false);
+        MasterServer.RegisterHost(typeName, gameName,"Testing server setup");
 
 	}
 
@@ -17,10 +17,17 @@ private const string gameName = "Room1";
     {
         Debug.Log("Server Initializied");
     }
+	void  OnMasterServerEvent(MasterServerEvent masterEvent)
+	{
+		if (masterEvent == MasterServerEvent.RegistrationSucceeded) 
+		{
+			Debug.Log ("Succeeded registration");
+		}
+	}
 
     // Update is called once per frame
     void Start () {
-        OnGUI();
+        //OnGUI();
 	}
 
     void OnGUI()
