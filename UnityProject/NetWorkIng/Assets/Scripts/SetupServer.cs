@@ -37,5 +37,10 @@ private const string gameName = "TankMobaMC";
             if (GUI.Button(new Rect(100, 100, 250, 100), "Start Server"))
                 StartServer();
         }
+
+        if (Network.isClient)
+        {
+            //
+        }
     }
 }
