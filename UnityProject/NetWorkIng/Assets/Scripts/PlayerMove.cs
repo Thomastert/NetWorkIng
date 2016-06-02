@@ -6,6 +6,8 @@ public class PlayerMove : NetworkBehaviour
 {
     [SerializeField]
     private GameObject bulletPrefab;
+    [SerializeField]
+    private GameObject Target;
 
     public override void OnStartLocalPlayer()
     {
@@ -43,10 +45,11 @@ public class PlayerMove : NetworkBehaviour
             CmdFire();
         }
 
-        var x = Input.GetAxis("Horizontal") * 0.1f;
-        var z = Input.GetAxis("Vertical") * 0.1f;
+        //var x = Input.GetAxis("Horizontal") * 0.1f;
+        //var z = Input.GetAxis("Vertical") * 0.1f;
 
-        transform.Translate(x, 0, z);
+        //transform.Translate(x, 0, z);
+        transform.position = Vector3.Lerp(transform.position, Target.transform.position, 0.5f);
     }
 
     void Fire()
