@@ -4,32 +4,45 @@ using UnityEngine.Networking;
 
 public class PlayerMoveOnClick : NetworkBehaviour
 {
+	[SyncVar] private Vector3 _syncPos;
+	[SerializeField]private Transform _myTransform;
 
-    Vector3 newPosition;
-    void Start()
+    void FixedUpdate()
     {
-        newPosition = transform.position;
+		TransmitPos ();
+		LerpPosition ();
+
 
     }
-    void Update()
-    {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
+	void LerpPosition()
+	{
+		if (!isLocalPlayer)
+		{
+			return;
+		}
+		_myTransform.position = Vector3.Lerp(_myTransform.position, _syncPos, 15);
 
-        transform.position = Vector3.Lerp(transform.position, newPosition, 0.5f);
+		if (Input.GetMouseButtonDown(0))
+		{
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out hit))
+			{
+				//newPosition = hit.point;
+				CmdProvidePositionToServer(hit.point);
+			}
+		}
 
-        if (Input.GetMouseButtonDown(0))
-            {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit))
-                {
-                    newPosition = hit.point;
 
-            }
-        }
-        
-    }
+	}
+	[Command]
+	void CmdProvidePositionToServer(Vector3 pos)
+	{
+		_syncPos = pos;
+	}
+	[ClientCallback]
+	void TransmitPos()
+	{
+		CmdProvidePositionToServer (_myTransform.position);
+	}
 }
