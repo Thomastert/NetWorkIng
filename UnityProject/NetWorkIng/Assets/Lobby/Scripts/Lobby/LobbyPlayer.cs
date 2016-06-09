@@ -271,11 +271,13 @@ namespace Prototype.NetworkLobby
                     }
                 }
             }
+            
             while (alreadyInUse);
 
             if (inUseIdx >= 0)
             {//if we already add an entry in the colorTabs, we change it
                 _colorInUse[inUseIdx] = idx;
+                
             }
             else
             {//else we add it
