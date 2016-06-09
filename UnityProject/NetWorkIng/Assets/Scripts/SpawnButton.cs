@@ -16,5 +16,6 @@ public class SpawnButton : NetworkBehaviour {
         _playerContainerr.GetComponent<PlayerContainer>().tankNumber = _tankChoice.value;
         _playerContainerr.GetComponent<PlayerContainer>().teamSide = _tankColor.value;
         Instantiate(_playerContainerr);
+        gameObject.SetActive(false);
     }
 }
