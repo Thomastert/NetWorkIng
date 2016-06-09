@@ -5,22 +5,16 @@ using UnityEngine.Networking;
 
 public class SpawnButton : NetworkBehaviour {
     [SerializeField]
-    private Dropdown TankChoice;
+    private Dropdown _tankChoice;
     [SerializeField]
-    private Dropdown TankKleur;
-	
-    // Use this for initialization
-	void Start () {
+    private Dropdown _tankColor;
+    [SerializeField]
+    private GameObject _playerContainerr;
 
-        //if (isLocalPlayer)
-        //{
-        //    gameObject.SetActive(true);
-        //}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-        Debug.Log(TankChoice.value);
-	}
+    public void SaveVars()
+    {
+        _playerContainerr.GetComponent<PlayerContainer>().tankNumber = _tankChoice.value;
+        _playerContainerr.GetComponent<PlayerContainer>().teamSide = _tankColor.value;
+        Instantiate(_playerContainerr);
+    }
 }
