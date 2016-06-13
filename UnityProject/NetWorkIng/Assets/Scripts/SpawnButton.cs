@@ -11,11 +11,18 @@ public class SpawnButton : NetworkBehaviour {
     [SerializeField]
     private GameObject _playerContainerr;
 
-    public void SaveVars()
+	[Command]
+    public void Cmd_SaveVars()
     {
+
         _playerContainerr.GetComponent<PlayerContainer>().tankNumber = _tankChoice.value;
         _playerContainerr.GetComponent<PlayerContainer>().teamSide = _tankColor.value;
-        Instantiate(_playerContainerr);
-        gameObject.SetActive(false);
-    }
+        //Instantiate(_playerContainerr);
+		NetworkServer.SpawnWithClientAuthority(_playerContainerr, connectionToClient);
+
+
+		_playerContainerr.GetComponent<PlayerContainer> ().useCmd ();
+		Destroy (gameObject);
+		}
+    
 }
