@@ -5,18 +5,17 @@ using UnityEngine.Networking;
 public class PlayerMove : NetworkBehaviour
 {
 
+
     // Update is called once per frame
     void Update()
     {
-        if (isLocalPlayer)
-        {
-            SavePos();
-            // run function
-        }
+        SavePos();
     }
 
 
     void SavePos()
+  {
+    if (isLocalPlayer)
     {
         if (Input.GetMouseButtonDown(1))
         {
@@ -29,4 +28,5 @@ public class PlayerMove : NetworkBehaviour
 
         }
     }
+  }
 }

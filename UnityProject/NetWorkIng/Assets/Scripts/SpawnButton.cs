@@ -42,8 +42,7 @@ public class SpawnButton : NetworkBehaviour {
 
 			//shouldIspawn = true;
 		Cmd_Spawn();		
-
-		Destroy (gameObject);
+        Destroy (gameObject);
 	}
 
 	[Command]
@@ -51,8 +50,8 @@ public class SpawnButton : NetworkBehaviour {
 	{
 		//NetworkConnection conn = NetworkConnection;
 		GameObject ObjectToSpawn = (GameObject)Instantiate (_playerContainerr,transform.position, transform.rotation);
-		//NetworkServer.ReplacePlayerForConnection (conn, ObjectToSpawn, 0);
-		NetworkServer.Spawn (ObjectToSpawn);
+        //NetworkServer.ReplacePlayerForConnection (conn, ObjectToSpawn, 0);
+        NetworkServer.SpawnWithClientAuthority(ObjectToSpawn, connectionToClient);
 
 	}
     

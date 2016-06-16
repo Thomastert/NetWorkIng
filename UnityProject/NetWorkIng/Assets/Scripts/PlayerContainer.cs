@@ -17,6 +17,11 @@ public class PlayerContainer : NetworkBehaviour
 
 	public override void OnStartServer()
 	{
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
 		Debug.Log ("spawning in progres");
 		switch (tankNumber)
 		{
@@ -25,7 +30,9 @@ public class PlayerContainer : NetworkBehaviour
 			GameObject obj1 = (GameObject)Instantiate (_tankArray [tankNumber], _spawnPoints [teamSide].transform.position, (new Quaternion (0, 0, 0, 0)));
 			Debug.Log ("Spawn 0");
 			NetworkServer.SpawnWithClientAuthority (obj1, connectionToClient);
-			break;
+            
+
+            break;
 		case 1:
 			GameObject obj2 = (GameObject)Instantiate(_tankArray[tankNumber], _spawnPoints[teamSide].transform.position, (new Quaternion(0, 0, 0, 0)));
 			Debug.Log("Spawn 1");
@@ -35,12 +42,15 @@ public class PlayerContainer : NetworkBehaviour
 		case 2:
 			GameObject obj3 = (GameObject) Instantiate(_tankArray[tankNumber], _spawnPoints[teamSide].transform.position, (new Quaternion(0, 0, 0, 0)));
 			Debug.Log("Spawn 2");
+             
+            
 			NetworkServer.SpawnWithClientAuthority (obj3, connectionToClient);
 			break;
 		}
 		Debug.Log(teamSide + tankNumber);
 
 	}
+    
 	/*
 	[Command]
 	public void Cmd_CheckForTank()
